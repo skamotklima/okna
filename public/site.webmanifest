@@ -1,0 +1,27 @@
+{
+  "name": "Ремонт окон в Барнауле | Оконный Мастер",
+  "short_name": "Окна Барнаул",
+  "description": "Профессиональный ремонт и обслуживание пластиковых окон в Барнауле. Выезд в день обращения.",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#8b5cf6",
+  "background_color": "#ffffff",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ru-RU",
+  "dir": "ltr",
+  "categories": ["business", "services"]
+}

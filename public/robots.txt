@@ -1,0 +1,34 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_nuxt/
+Disallow: /.git/
+Disallow: /node_modules/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.xml$
+Allow: /*.ico$
+Allow: /*.webmanifest$
+Allow: /favicon.ico
+Allow: /site.webmanifest
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 0.5
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
+
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: YandexImages
+Allow: /
+User-agent: Googlebot-Mobile
+Allow: /
+Sitemap: https://remdom22.ru/sitemap.xml
+Host: remdom22.ru

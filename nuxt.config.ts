@@ -11,13 +11,15 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL,
-    smtpHost: process.env.SMTP_HOST || "smtp.yandex.ru",
-    smtpPort: Number(process.env.SMTP_PORT || 465),
-    smtpSecure: process.env.SMTP_SECURE || "true",
-    smtpUser: process.env.SMTP_USER,
-    smtpPass: process.env.SMTP_PASS,
-    smtpFrom: process.env.SMTP_FROM,
-    smtpTo: process.env.SMTP_TO || "remdom.22@yandex.com",
+    // SMTP secrets must be supplied at runtime (NUXT_SMTP_*), not captured
+    // into the build output. The contact handler also accepts legacy SMTP_*.
+    smtpHost: "",
+    smtpPort: 465,
+    smtpSecure: true,
+    smtpUser: "",
+    smtpPass: "",
+    smtpFrom: "",
+    smtpTo: "",
     secretRegistrationCode: process.env.SECRET_REGISTRATION_CODE,
     public: {
       contactEmailDraft: false,

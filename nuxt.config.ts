@@ -20,6 +20,8 @@ export default defineNuxtConfig({
     smtpPass: "",
     smtpFrom: "",
     smtpTo: "",
+    mailTransport: "smtp",
+    sendmailPath: "/usr/sbin/sendmail",
     secretRegistrationCode: process.env.SECRET_REGISTRATION_CODE,
     public: {
       contactEmailDraft: false,

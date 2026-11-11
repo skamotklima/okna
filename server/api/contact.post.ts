@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const config = useRuntimeConfig(event);
+  const mailTransport = normalizeString(config.mailTransport, 20) || "smtp";
   const smtpHost =
     normalizeString(process.env.SMTP_HOST || config.smtpHost, MAX_EMAIL_LENGTH) || DEFAULT_SMTP_HOST;
   const smtpPort = normalizeNumber(process.env.SMTP_PORT || config.smtpPort, DEFAULT_SMTP_PORT);
@@ -43,8 +44,13 @@ export default defineEventHandler(async (event) => {
   const smtpTo =
     normalizeString(process.env.SMTP_TO || config.smtpTo, MAX_EMAIL_LENGTH) || DEFAULT_RECEIVER_EMAIL;
 
-  if (!smtpUser || !smtpPass || !smtpFrom || !smtpTo) {
-    console.error("SMTP configuration is incomplete", {
+  if (
+    !["smtp", "sendmail"].includes(mailTransport) ||
+    !smtpFrom || !smtpTo ||
+    (mailTransport === "smtp" && (!smtpUser || !smtpPass))
+  ) {
+    console.error("Mail configuration is incomplete", {
+      transport: mailTransport,
       hasSmtpUser: !!smtpUser,
       hasSmtpPass: !!smtpPass,
       hasSmtpFrom: !!smtpFrom,
@@ -94,7 +100,13 @@ export default defineEventHandler(async (event) => {
   `.trim();
 
   try {
-    const transporter = nodemailer.createTransport({
+    const transporter = mailTransport === "sendmail"
+      ? nodemailer.createTransport({
+        sendmail: true,
+        newline: "unix",
+        path: normalizeString(config.sendmailPath, 500) || "/usr/sbin/sendmail",
+      })
+      : nodemailer.createTransport({
       host: smtpHost,
       port: smtpPort,
       secure: smtpSecure,
@@ -117,8 +129,8 @@ export default defineEventHandler(async (event) => {
       message: "Заявка успешно отправлена. Мы скоро свяжемся с вами.",
     };
   } catch (error: any) {
-    console.error("SMTP send error", {
-      message: error?.message,
+    console.error("Mail send error", {
+      transport: mailTransport,
       code: error?.code,
     });
 

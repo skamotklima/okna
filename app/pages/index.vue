@@ -671,7 +671,7 @@ useHead({
 }
 
 .home-main > .service-focus-section {
-  padding-block: 0 clamp(1.75rem, 3.8vw, 3.35rem);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(1.75rem, 3.8vw, 3.35rem);
   background: transparent;
 }
 
